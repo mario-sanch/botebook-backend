@@ -20,9 +20,12 @@ class CustomAPIError extends Error {
 
 export enum ErrorCode {
   NOT_FOUND = 1001,
+  ALREADY_EXISTS = 1002,
   FORBIDDEN = 1003,
   INTERNAL_SERVER = 1005,
+  TOO_MANY_REQUEST = 1006,
   BAD_REQUEST = 1007,
+  UNAUTHENTICATED_USER = 1008,
 }
 
 export default CustomAPIError;
