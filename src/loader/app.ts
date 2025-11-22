@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 const morgan = require("morgan");
 import helmet from "helmet";
 const cors = require("cors");
@@ -19,6 +19,17 @@ config();
 export const bootstrapExpress = (app: any) => {
   app.use(successHandler);
   app.use(errorHandler);
+
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    Object.defineProperty(req, "query", {
+      value: { ...req.query },
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    });
+    next();
+  });
+
   app.use(ExpressMongoSanitize());
   app.use(morgan("dev"));
   app.use(helmet());
@@ -45,7 +56,3 @@ export const bootstrapExpress = (app: any) => {
   app.use(notFoundMiddleware);
   app.use(errorHandlerMiddleware);
 };
-
-//const app = express();
-
-//export default app;
