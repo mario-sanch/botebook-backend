@@ -1,4 +1,5 @@
 const express = require("express");
+import { Request, Response, NextFunction } from "express";
 const { connectToServer } = require("./config/connect");
 const cors = require("cors");
 import postRoutes from "./routes/postRoutes";
@@ -10,11 +11,11 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", postRoutes);
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the Node.js TypeScript API!");
 });
 
-app.use((err, req, res, nextFunction) => {
+app.use((err: any, req: Request, res: Response, nextFunction: NextFunction) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });

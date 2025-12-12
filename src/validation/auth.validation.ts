@@ -21,4 +21,50 @@ export const registerUserSchema = z.object({
   }),
 });
 
-export type registrerUserInput = z.infer<typeof registerUserSchema>;
+export const activateUserSchema = z.object({
+  body: object({
+    OTPCode: z.string(),
+    email: z.string("Invalid email format"),
+  }),
+});
+
+export const forgotPasswordSchema = z.object({
+  body: object({
+    email: z.email("Invalid email format"),
+  }),
+});
+
+export const resetPasswordSchema = z.object({
+  body: object({
+    email: z.string("Invalid email format"),
+    passwordResetCode: z.string(),
+    password: z.string("Password is required").min(6, "Minimum 6 characters"),
+  }),
+});
+
+export const loginUserSchema = z.object({
+  body: object({
+    email: z.string(),
+    password: z.string(),
+  }),
+});
+
+export const changeOldPasswordSchema = z.object({
+  body: object({
+    oldPassword: z
+      .string("Password is required")
+      .min(6, "Minimum 6 characters"),
+    newPassword: z
+      .string("New password is required")
+      .min(6, "Minimum 6 characters"),
+  }),
+});
+
+export type registerUserInput = z.infer<typeof registerUserSchema>["body"];
+export type activateUserInput = z.infer<typeof activateUserSchema>["body"];
+export type forgotPasswordInput = z.infer<typeof forgotPasswordSchema>["body"];
+export type resetPasswordInput = z.infer<typeof resetPasswordSchema>["body"];
+export type loginUserInput = z.infer<typeof loginUserSchema>["body"];
+export type changeOldPasswordInput = z.infer<
+  typeof changeOldPasswordSchema
+>["body"];

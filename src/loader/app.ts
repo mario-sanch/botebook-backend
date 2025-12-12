@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, Express } from "express";
 const morgan = require("morgan");
 import helmet from "helmet";
 const cors = require("cors");
@@ -16,7 +16,7 @@ import api from "../api/index.api";
 
 config();
 
-export const bootstrapExpress = (app: any) => {
+export const bootstrapExpress = (app: Express) => {
   app.use(successHandler);
   app.use(errorHandler);
 

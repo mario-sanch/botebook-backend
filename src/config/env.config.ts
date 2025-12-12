@@ -12,10 +12,10 @@ export const validateEnv = () => {
       port: +envVars.PORT,
       env: envVars.NODE_ENV,
       ATLAS_URI: envVars.ATLAS_URI,
-      // jwtconfig: {
-      //   accessSecret: envVars.JWT,
-      //   refreshaccessSecret: envVars.JWT_REFRESH,
-      // },
+      jwtconfig: {
+        accessSecret: envVars.JWT,
+        refreshaccessSecret: envVars.JWT_REFRESH,
+      },
       // smtp: {
       //   host: envVars.SMTP_HOST,
       //   port: envVars.SMTP_PORT,

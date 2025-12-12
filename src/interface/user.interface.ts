@@ -7,7 +7,7 @@ export interface IUser extends Document {
   email: string;
   name: string;
   isActive: boolean;
-  OTPCode?: string;
+  OTPCode?: string; // OTP = one time password
   OTPCodeExpires?: number;
   passwordResetCode?: string;
   role: IRole;

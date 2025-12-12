@@ -44,7 +44,7 @@ export const AuthJWT = (
 
     jwt.verify(
       token,
-      jwtconfig?.accessSecret,
+      jwtconfig!.accessSecret,
       async (err: any, decoded: any) => {
         if (err) {
           return next(
