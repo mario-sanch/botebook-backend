@@ -35,6 +35,8 @@ router.post(
 );
 router.post("/login", validateSchema(loginUserSchema), login);
 
+router.post("/refresh", refreshToken);
+
 /* router.post(
   "/changePassword",
   AuthJWT,

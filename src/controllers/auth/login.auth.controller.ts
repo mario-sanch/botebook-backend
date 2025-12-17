@@ -38,7 +38,7 @@ export const login = asyncHandler(
     }
 
     const accessToken = signJwt({ userId: user._id }, secretKey as string, {
-      expiresIn: "3d",
+      expiresIn: "15m",
     });
 
     await TokenModel.create({

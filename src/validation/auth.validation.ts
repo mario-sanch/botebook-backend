@@ -60,6 +60,12 @@ export const changeOldPasswordSchema = z.object({
   }),
 });
 
+export const refreshTokenSchema = z.object({
+  body: object({
+    email: z.string(),
+  }),
+});
+
 export type registerUserInput = z.infer<typeof registerUserSchema>["body"];
 export type activateUserInput = z.infer<typeof activateUserSchema>["body"];
 export type forgotPasswordInput = z.infer<typeof forgotPasswordSchema>["body"];
@@ -68,3 +74,4 @@ export type loginUserInput = z.infer<typeof loginUserSchema>["body"];
 export type changeOldPasswordInput = z.infer<
   typeof changeOldPasswordSchema
 >["body"];
+export type refreshTokenInput = z.infer<typeof refreshTokenSchema>["body"];
