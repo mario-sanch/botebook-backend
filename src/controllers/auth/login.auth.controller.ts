@@ -14,47 +14,56 @@ export const login = asyncHandler(
   async (req: Request<object, object, loginUserInput>, res: Response) => {
     const { password, email } = req.body;
 
-    const user = await findUser({ email }, { select: "+password", lean: true });
-
-    if (!user) {
-      throw new ForbiddenError("User does not exists", ErrorCode.FORBIDDEN);
-    }
-
-    if (!user.isActive) {
-      throw new BadRequestError(
-        "Please verify your email first",
-        ErrorCode.BAD_REQUEST
+    try {
+      const user = await findUser(
+        { email },
+        { select: "+password", lean: true }
       );
-    }
 
-    const role = user.role;
+      if (!user) {
+        throw new ForbiddenError("User does not exists", ErrorCode.FORBIDDEN);
+      }
 
-    const secretKey = validateEnv()?.jwtconfig.accessSecret;
+      if (!user.isActive) {
+        throw new BadRequestError(
+          "Please verify your email first",
+          ErrorCode.BAD_REQUEST
+        );
+      }
 
-    const match = await bcrypt.compare(password, user.password);
+      const role = user.role;
 
-    if (!match) {
-      throw new ForbiddenError("Invalid credentials", ErrorCode.FORBIDDEN);
-    }
+      const secretKey = validateEnv()?.jwtconfig.accessSecret;
 
-    const accessToken = signJwt({ userId: user._id }, secretKey as string, {
-      expiresIn: "15m",
-    });
+      const match = await bcrypt.compare(password, user.password);
 
-    await TokenModel.create({
-      token: accessToken,
-      userId: user._id,
-      expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
-    });
+      if (!match) {
+        throw new ForbiddenError("Invalid credentials", ErrorCode.FORBIDDEN);
+      }
 
-    //Remove sensitive data from user object
-    //delete user.password;
+      const accessToken = signJwt({ userId: user._id }, secretKey as string, {
+        expiresIn: "15m",
+      });
 
-    res.status(200).json({
-      success: true,
-      user: user,
-      message: "Logged in successfully",
-      accessToken,
-    });
+      await TokenModel.create({
+        token: accessToken,
+        userId: user._id,
+        expires: new Date(Date.now() + 3 * 24 * 60 * 1000),
+      });
+
+      //Remove sensitive data from user object
+      //delete user.password;
+
+      res
+        .status(200)
+        .json({
+          success: true,
+          user: user,
+          message: "Logged in successfully",
+        })
+        .cookie("accessToken", accessToken, {
+          httpOnly: true,
+        });
+    } catch (err) {}
   }
 );

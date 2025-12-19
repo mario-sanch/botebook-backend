@@ -47,6 +47,7 @@ export const bootstrapExpress = (app: Express) => {
   );
   app.use(cors());
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
   app.use(cors(corsOptions));
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));

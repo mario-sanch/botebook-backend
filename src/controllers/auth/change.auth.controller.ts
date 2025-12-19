@@ -9,7 +9,7 @@ import { findUser } from "../../services/user.services";
 import { ErrorCode } from "../../errors/custom.error";
 
 export const changePassword = async (
-  req: IUserMessage<object, object, changeOldPasswordInput>,
+  req: any, // IUserMessage<object, object, changeOldPasswordInput>
   res: Response
 ) => {
   const { oldPassword, newPassword } = req.body;

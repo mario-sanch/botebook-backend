@@ -10,12 +10,7 @@ import { IRole } from "../interface/role.interface";
 import { IUser } from "../interface/user.interface";
 
 import { extractTokenfromHeader } from "../utils/util";
-
-export interface UserDataType {
-  userId: string;
-  permission?: IRole["permissions"];
-  role?: IRole;
-}
+import { UserDataType } from "../interface/userDataType";
 
 export interface IUserMessage<TParams = any, TQuery = any, TBody = any>
   extends Request<TParams, TQuery, TBody> {
@@ -27,7 +22,7 @@ type ExtendedUser = IUser & {
 };
 
 export const AuthJWT = (
-  req: IUserMessage,
+  req: any, // IUserMessage
   res: Response,
   next: NextFunction
 ) => {

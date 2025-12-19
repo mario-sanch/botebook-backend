@@ -2,7 +2,9 @@ import { Request } from "express";
 
 export const extractTokenfromHeader = (req: Request) => {
   const authHeader =
-    req.headers.authorization || (req.headers.Authorization as string);
+    req.headers.authorization ||
+    (req.headers.Authorization as string) ||
+    req.cookies.accessToken;
 
   if (!authHeader?.startsWith("Bearer ")) {
     return false;

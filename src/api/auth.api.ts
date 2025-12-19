@@ -1,4 +1,5 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
+import { IUserMessage } from "../middleware/authJWT.middleware";
 import validateSchema from "../middleware/zodValidation.middleware";
 import {
   registerUserSchema,
@@ -15,6 +16,7 @@ import {
   resetPasswordHandler,
   login,
   changePassword,
+  refreshToken,
 } from "../controllers/auth/index.auth.controller";
 
 import { AuthJWT } from "../middleware/authJWT.middleware";
@@ -37,11 +39,11 @@ router.post("/login", validateSchema(loginUserSchema), login);
 
 router.post("/refresh", refreshToken);
 
-/* router.post(
+router.post(
   "/changePassword",
   AuthJWT,
   validateSchema(changeOldPasswordSchema),
   changePassword
-); */
+);
 
 export default router;
