@@ -34,6 +34,7 @@ export const login = asyncHandler(
       const role = user.role;
 
       const secretKey = validateEnv()?.jwtconfig.accessSecret;
+      const jwtRefresh = validateEnv()?.jwtconfig.refreshaccessSecret;
 
       const match = await bcrypt.compare(password, user.password);
 
@@ -45,6 +46,10 @@ export const login = asyncHandler(
         expiresIn: "15m",
       });
 
+      const refreshToken = signJwt({ userId: user.id }, jwtRefresh as string, {
+        expiresIn: "1d",
+      });
+
       await TokenModel.create({
         token: accessToken,
         userId: user._id,
@@ -54,16 +59,19 @@ export const login = asyncHandler(
       //Remove sensitive data from user object
       //delete user.password;
 
-      res
-        .status(200)
-        .json({
-          success: true,
-          user: user,
-          message: "Logged in successfully",
-        })
-        .cookie("accessToken", accessToken, {
-          httpOnly: true,
-        });
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      res.status(200).json({
+        success: true,
+        user: user,
+        message: "Logged in successfully",
+        accessToken,
+      });
     } catch (err) {}
   }
 );

@@ -8,6 +8,7 @@ import {
   resetPasswordSchema,
   loginUserSchema,
   changeOldPasswordSchema,
+  refreshTokenSchema,
 } from "../validation/auth.validation";
 import {
   registerUser,
@@ -37,7 +38,7 @@ router.post(
 );
 router.post("/login", validateSchema(loginUserSchema), login);
 
-router.post("/refresh", refreshToken);
+router.post("/refresh", validateSchema(refreshTokenSchema), refreshToken);
 
 router.post(
   "/changePassword",

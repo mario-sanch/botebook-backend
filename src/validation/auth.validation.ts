@@ -44,7 +44,7 @@ export const resetPasswordSchema = z.object({
 
 export const loginUserSchema = z.object({
   body: object({
-    email: z.string(),
+    email: z.string("Missing Email"),
     password: z.string(),
   }),
 });
@@ -62,7 +62,7 @@ export const changeOldPasswordSchema = z.object({
 
 export const refreshTokenSchema = z.object({
   body: object({
-    email: z.string(),
+    email: z.string("Missing Email"),
   }),
 });
 

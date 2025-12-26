@@ -8,7 +8,7 @@ export async function findAllUsers() {
 }
 
 export async function findUserById(id: string) {
-  return await UserModel.findById(id);
+  return await UserModel.findById(id); // in docs it calls .exec();
 }
 
 export const findExtendedUsers = async (userId: string) => {
