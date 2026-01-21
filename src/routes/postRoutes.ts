@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+/* import { Router, Request, Response } from "express";
 import { body } from "express-validator";
 import {
   getPosts,
@@ -34,3 +34,4 @@ router.put("/posts/:id", postValidationRules, updatePost);
 router.delete("/posts/:id", deletePost);
 
 export default router;
+ */

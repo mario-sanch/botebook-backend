@@ -11,7 +11,9 @@
     "start": "tsc & node dist/index.js",
     "dev": "nodemon index.ts",
     "build": "tsc",
-    "lint": "eslint . --.ts",
+    "lint": "eslint src --ignore-path .eslintignore --ext .ts",
+    "lint:fixed": "npx eslint src --fix",
+    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "serve": "node dist/index.js"
   },
   "dependencies": {
@@ -44,7 +46,13 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.9.1",
     "@types/nodemailer": "^7.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.53.1",
+    "@typescript-eslint/parser": "^8.53.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "nodemon": "^3.1.10",
+    "prettier": "^3.8.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
