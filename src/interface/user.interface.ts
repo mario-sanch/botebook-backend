@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import { Document } from "mongoose";
 import { IRole } from "./role.interface";
 
 export interface IUser extends Document {
@@ -12,3 +12,8 @@ export interface IUser extends Document {
   passwordResetCode?: string;
   role: IRole;
 }
+
+export interface IUserSimplified extends Omit<
+  IUser,
+  "password" | "OTPCode" | "OTPCodeExpires" | "passwordResetCode"
+> {}

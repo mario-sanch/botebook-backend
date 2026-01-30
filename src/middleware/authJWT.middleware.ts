@@ -12,8 +12,11 @@ import { IUser } from "../interface/user.interface";
 import { extractTokenfromHeader } from "../utils/util";
 import { UserDataType } from "../interface/userDataType";
 
-export interface IUserMessage<TParams = any, TQuery = any, TBody = any>
-  extends Request<TParams, TQuery, TBody> {
+export interface IUserMessage<
+  TParams = any,
+  TQuery = any,
+  TBody = any,
+> extends Request<TParams, TQuery, TBody> {
   userData: UserDataType;
 }
 
@@ -66,3 +69,18 @@ export const AuthJWT = (
     throw new UnAuthenticatedError("Provide token", ErrorCode.TOKEN_NOT_FOUND);
   }
 };
+
+export function authorizeRoles(allowedRoles: IRole[]) {
+  //req:IUserMessage
+  return (req: any, res: Response, next: NextFunction) => {
+    const user = req.userData;
+
+    if (user && !allowedRoles.includes(user.role)) {
+      return res.status(403).json({
+        message: `Forbidden, you are a ${user.role} and this service is only available for ${allowedRoles}`,
+      });
+    }
+
+    next();
+  };
+}

@@ -4,6 +4,7 @@ import { logger } from "./src/config/loggers";
 import { validateEnv } from "./src/config/env.config";
 import mongoose from "mongoose";
 import { bootstrap } from "./src/loader/bootstrap";
+//import sitemap from "express-sitemap-html";
 
 const exitHandler = (server: Server | null) => {
   if (server) {
@@ -29,6 +30,8 @@ const startServer = async () => {
 
   const httpServer = createServer(app);
   const port = validateEnv()?.port;
+
+  //sitemap.swagger("Api Docs", app);
 
   const server: Server = httpServer.listen(port, () => {
     logger.info(`server listening on port ${port}`);

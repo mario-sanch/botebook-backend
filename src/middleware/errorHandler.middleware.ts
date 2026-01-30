@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import CustomAPIError from "../errors/custom.error";
-import { string, success } from "zod";
 
 const errorHandlerMiddleware = (
   err: any,

@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response, Router } from "express";
 import { IUserMessage } from "../middleware/authJWT.middleware";
 import validateSchema from "../middleware/zodValidation.middleware";
 import {
@@ -10,6 +10,7 @@ import {
   changeOldPasswordSchema,
   refreshTokenSchema,
 } from "../validation/auth.validation";
+
 import {
   registerUser,
   activateUser,
@@ -22,7 +23,7 @@ import {
 
 import { AuthJWT } from "../middleware/authJWT.middleware";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.post("/register", validateSchema(registerUserSchema), registerUser);
 router.post("/activate", validateSchema(activateUserSchema), activateUser);

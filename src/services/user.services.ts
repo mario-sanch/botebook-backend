@@ -1,4 +1,4 @@
-import { FilterQuery, QueryOptions, Schema, UpdateQuery } from "mongoose";
+import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 import { IUser } from "../interface/user.interface";
 import UserModel from "../models/user.model";
 import roleModel from "../models/role.model";
