@@ -16,7 +16,9 @@ import api from "../api/index.api";
 
 config();
 
-export const bootstrapExpress = (app: Express) => {
+export const bootstrapExpress = () => {
+  const app: Express = express();
+
   app.use(successHandler);
   app.use(errorHandler);
 
@@ -56,4 +58,6 @@ export const bootstrapExpress = (app: Express) => {
 
   app.use(notFoundMiddleware);
   app.use(errorHandlerMiddleware);
+
+  return app;
 };

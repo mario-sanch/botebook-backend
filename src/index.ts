@@ -1,9 +1,9 @@
-import express, { Express } from "express";
+import { Express } from "express";
 import { Server, createServer } from "http";
-import { logger } from "./src/config/loggers";
-import { validateEnv } from "./src/config/env.config";
+import { logger } from "./config/loggers";
+import { validateEnv } from "./config/env.config";
 import mongoose from "mongoose";
-import { bootstrap } from "./src/loader/bootstrap";
+import { bootstrap } from "./loader/bootstrap";
 //import sitemap from "express-sitemap-html";
 
 const exitHandler = (server: Server | null) => {
@@ -24,9 +24,10 @@ const unExpectedErrorHandler = (server: Server) => {
   };
 };
 
+//const app: Express = express();
+
 const startServer = async () => {
-  const app: Express = express();
-  await bootstrap(app);
+  const app: Express = await bootstrap();
 
   const httpServer = createServer(app);
   const port = validateEnv()?.port;
@@ -50,6 +51,8 @@ const startServer = async () => {
   mongoose.connection.on("error", (err) => {
     console.log(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`);
   });
+
+  //return server;
 };
 
 startServer();
