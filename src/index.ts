@@ -30,7 +30,7 @@ const startServer = async () => {
   const app: Express = await bootstrap();
 
   const httpServer = createServer(app);
-  const port = validateEnv()?.port;
+  const { port } = validateEnv();
 
   //sitemap.swagger("Api Docs", app);
 

@@ -5,7 +5,7 @@ import path from "path";
 import { validateEnv } from "./env.config";
 import { Request, Response } from "express";
 
-const nodeEnv = validateEnv()?.env;
+const { env: nodeEnv } = validateEnv();
 
 const getIPFormat = () => {
   nodeEnv === "production" ? ":remote-addr - " : "";

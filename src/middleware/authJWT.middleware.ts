@@ -30,7 +30,7 @@ export const AuthJWT = (
   next: NextFunction
 ) => {
   try {
-    const jwtconfig = validateEnv()?.jwtconfig;
+    const { jwtconfig } = validateEnv();
     const token = extractTokenfromHeader(req);
 
     if (!token) {
@@ -42,7 +42,7 @@ export const AuthJWT = (
 
     jwt.verify(
       token,
-      jwtconfig!.accessSecret,
+      jwtconfig.accessSecret,
       async (err: any, decoded: any) => {
         if (err) {
           return next(
